@@ -31,6 +31,9 @@
                 <span class="indicator" style="display: none;"></span>
             </div>
         </div>
+        <a href="javascript:void(0);" class="purple-menu-close-link">
+            <img src="images/close.svg" alt="gift">
+        </a>
     </div>
     <a href="javascript:void(0);" class="purple-menu-open-link">
         <img src="images/gift.svg" alt="gift">
@@ -53,6 +56,7 @@
         const circle = document.querySelector('.purple-menu .circle');
         const indicator = document.querySelector('.purple-menu .indicator');
         const purpleMenuOpenLink = document.querySelector('a.purple-menu-open-link');
+        const purpleMenuCloseLink = document.querySelector('a.purple-menu-close-link');
 
         bottomOptions.forEach(option => {
             option.addEventListener('click', () => {
@@ -73,6 +77,17 @@
         purpleMenuOpenLink.addEventListener('click', () => {
             purpleMenuOpenLink.style.bottom = '-300px';
             purpleMenu.style.bottom = '15px';
+        })
+
+        purpleMenuCloseLink.addEventListener('click', () => {
+            purpleMenuOpenLink.style.bottom = '15px';
+            purpleMenu.style.bottom = '-300px';
+            circle.style.display = 'none';
+            indicator.style.display = 'none';
+            popupSection.classList.toggle('active', false);
+            bottomOptions.forEach(option => {
+                option.checked = false;
+            })
         })
     </script>
 

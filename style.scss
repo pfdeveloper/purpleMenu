@@ -50,6 +50,20 @@
         border-radius: 35px;
         border: 3px solid #fff;
     }
+    &-close-link {
+        position: absolute;
+        right: -5px;
+        bottom: 24px;
+        width: 18px;
+        height: 18px;
+        background: #fff;
+        border-radius: 50%;
+        z-index: 99999;
+
+        img {
+            width: 18px;
+        }
+    }
 }
 
 .purple-menu-open-link {
