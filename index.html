@@ -32,9 +32,12 @@
             </div>
         </div>
     </div>
+    <a href="javascript:void(0);" class="purple-menu-open-link">
+        <img src="images/gift.svg" alt="gift">
+    </a>
 
     <div class="popup-section">
-        <a href="javascript:void(0)" class="close-popup-link">
+        <a href="javascript:void(0);" class="close-popup-link">
             <img src="images/close.svg" alt="close" />
         </a>
         <div class="popup-section-content">
@@ -43,11 +46,13 @@
     </div>
 
     <script>
+        const purpleMenu = document.querySelector(".purple-menu");
         const bottomOptions = document.querySelectorAll(".purple-menu input[type='radio']");
         const popupSection = document.querySelector('.popup-section');
         const closePopupSection = document.querySelector('.close-popup-link');
         const circle = document.querySelector('.purple-menu .circle');
-        const indicator = document.querySelector('.purple-menu .indicator')
+        const indicator = document.querySelector('.purple-menu .indicator');
+        const purpleMenuOpenLink = document.querySelector('a.purple-menu-open-link');
 
         bottomOptions.forEach(option => {
             option.addEventListener('click', () => {
@@ -63,6 +68,11 @@
 
         closePopupSection.addEventListener('click', () => {
             popupSection.classList.toggle('active', false);
+        })
+
+        purpleMenuOpenLink.addEventListener('click', () => {
+            purpleMenuOpenLink.style.bottom = '-300px';
+            purpleMenu.style.bottom = '15px';
         })
     </script>
 
