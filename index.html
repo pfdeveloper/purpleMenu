@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="style.css" type="text/css" />
+    <title>Purple Menu</title>
+</head>
+
+<body>
+
+    <div class="purple-menu">
+        <input type="radio" name="s" id="signout" value="0">
+        <input type="radio" name="s" id="gift" value="1">
+        <input type="radio" name="s" id="qrcode" value="2">
+        <label for="signout">
+            <img src="images/signout.svg" alt="signout">
+        </label>
+        <label for="gift">
+            <img src="images/gift.svg" alt="gift">
+        </label>
+        <label for="qrcode">
+            <img src="images/qrcode.svg" alt="qr-code">
+        </label>
+        <div class="circle" style="display: none;"></div>
+        <div class="purple-menu-content">
+            <div class="purple-menu-bottom">
+                <span class="indicator" style="display: none;"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="popup-section">
+        <a href="javascript:void(0)" class="close-popup-link">
+            <img src="images/close.svg" alt="close" />
+        </a>
+        <div class="popup-section-content">
+            <!-- your content goes here -->
+        </div>
+    </div>
+
+    <script>
+        const bottomOptions = document.querySelectorAll(".purple-menu input[type='radio']");
+        const popupSection = document.querySelector('.popup-section');
+        const closePopupSection = document.querySelector('.close-popup-link');
+        const circle = document.querySelector('.purple-menu .circle');
+        const indicator = document.querySelector('.purple-menu .indicator')
+
+        bottomOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                circle.style.display = 'block';
+                indicator.style.display = 'block';
+                if (option.value == 1) {
+                    popupSection.classList.toggle('active', true);
+                } else {
+                    popupSection.classList.toggle('active', false);
+                }
+            })
+        })
+
+        closePopupSection.addEventListener('click', () => {
+            popupSection.classList.toggle('active', false);
+        })
+    </script>
+
+</body>
+
+</html>
