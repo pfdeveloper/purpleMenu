@@ -39,6 +39,19 @@
         <img src="images/gift.png" alt="gift">
     </a>
 
+    <div id="delivery-options">
+        <label>Delivery<br />Options</label>
+        <a href="javascript:void(0);">
+            <img src="images/home-address.png" alt="home-address" />
+        </a>
+        <a href="javascript:void(0);">
+            <img src="images/device-address.png" alt="device-address" />
+        </a>
+        <a href="javascript:void(0);">
+            <img src="images/person.png" alt="in-person" />
+        </a>
+    </div>
+
     <div class="popup-section">
         <a href="javascript:void(0);" class="close-popup-link">
             <img src="images/close.png" alt="close" />
@@ -57,14 +70,17 @@
         const indicator = document.querySelector('.purple-menu .indicator');
         const purpleMenuOpenLink = document.querySelector('a.purple-menu-open-link');
         const purpleMenuCloseLink = document.querySelector('a.purple-menu-close-link');
+        const deliveryOptions = document.querySelector('#delivery-options');
+        const deliveryOptionsLinks = document.querySelectorAll('#delivery-options');
 
         bottomOptions.forEach(option => {
             option.addEventListener('click', () => {
                 circle.style.display = 'block';
                 indicator.style.display = 'block';
                 if (option.value == 1) {
-                    popupSection.classList.toggle('active', true);
+                    deliveryOptions.classList.toggle('active');
                 } else {
+                    deliveryOptions.classList.toggle('active', false);
                     popupSection.classList.toggle('active', false);
                 }
             })
@@ -84,9 +100,17 @@
             purpleMenu.style.bottom = '-300px';
             circle.style.display = 'none';
             indicator.style.display = 'none';
+            deliveryOptions.classList.toggle('active', false);
             popupSection.classList.toggle('active', false);
             bottomOptions.forEach(option => {
                 option.checked = false;
+            })
+        })
+
+        deliveryOptionsLinks.forEach(option => {
+            option.addEventListener('click', () => {
+                deliveryOptions.classList.toggle('active', false);
+                popupSection.classList.toggle('active', true);
             })
         })
     </script>
