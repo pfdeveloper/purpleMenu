@@ -20,7 +20,7 @@
             <img src="images/signout.svg" alt="signout">
         </label>
         <label for="gift">
-            <img src="images/gift.svg" alt="gift">
+            <img id="gift-image" src="images/gift.svg" alt="gift">
         </label>
         <label for="qrcode">
             <img src="images/qrcode.svg" alt="qr-code">
@@ -41,14 +41,14 @@
 
     <div id="delivery-options">
         <label>Delivery<br />Options</label>
-        <a href="javascript:void(0);">
+        <a href="javascript:void(0);" style="margin-left: -15px;">
             <img src="images/home-address.svg" alt="home-address" />
         </a>
         <a href="javascript:void(0);">
             <img src="images/device-address.svg" alt="device-address" />
         </a>
         <a href="javascript:void(0);">
-            <img src="images/in-person.svg" alt="in-person" />
+            <img src="images/people-gift.svg" alt="in-person" />
         </a>
     </div>
 
@@ -71,18 +71,22 @@
         const purpleMenuOpenLink = document.querySelector('a.purple-menu-open-link');
         const purpleMenuCloseLink = document.querySelector('a.purple-menu-close-link');
         const deliveryOptions = document.querySelector('#delivery-options');
-        const deliveryOptionsLinks = document.querySelectorAll('#delivery-options');
+        const deliveryOptionsLinks = document.querySelectorAll('#delivery-options a');
+        const giftImage = document.querySelector('#gift-image');
 
         bottomOptions.forEach(option => {
             option.addEventListener('click', () => {
                 circle.style.display = 'block';
                 indicator.style.display = 'block';
                 if (option.value == 1) {
-                    deliveryOptions.classList.toggle('active');
-                    if (purpleMenuCloseLink.style.opacity == '1') {
-                        purpleMenuCloseLink.style.opacity = '0';
-                    } else {
+                    if (deliveryOptions.classList.contains('active')) {
+                        deliveryOptions.classList.remove('active');
                         purpleMenuCloseLink.style.opacity = '1';
+                        giftImage.src = 'images/gift.svg';
+                    } else {
+                        deliveryOptions.classList.add('active');
+                        purpleMenuCloseLink.style.opacity = '0';
+                        giftImage.src = 'images/close-white.svg';
                     }
                 } else {
                     deliveryOptions.classList.toggle('active', false);
@@ -95,6 +99,7 @@
             popupSection.classList.toggle('active', false);
             deliveryOptions.classList.toggle('active', false);
             purpleMenuCloseLink.style.opacity = '1';
+            giftImage.src = 'images/gift.svg';
         })
 
         purpleMenuOpenLink.addEventListener('click', () => {

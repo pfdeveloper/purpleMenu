@@ -191,7 +191,7 @@
 .popup-section {
     position: fixed;
     width: 0px;
-    max-width: 350px;
+    max-width: 470px;
     height: 0px;
     opacity: 0;
     bottom: 95px;
@@ -278,10 +278,29 @@
         }
     }
 
+    &::after {
+        content: "";
+        position: absolute;
+        top: -45px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        box-shadow: 0px 0px 0px 5px rgb(255, 255, 255);
+        background: transparent;
+        opacity: 0;
+        transition: all 0.3s ease-in-out;
+    }
+
     &.active {
         height: 60px;
         opacity: 1;
         transform: translateX(-50%) rotateX(0deg);
+
+        &::after {
+            opacity: 1;
+        }
     }
 }
 
