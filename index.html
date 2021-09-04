@@ -73,6 +73,10 @@
         const deliveryOptions = document.querySelector('#delivery-options');
         const deliveryOptionsLinks = document.querySelectorAll('#delivery-options a');
         const giftImage = document.querySelector('#gift-image');
+        const purpleMenuImages = document.querySelectorAll(".purple-menu label img");
+        purpleMenuImages.forEach(urlImg => {
+            urlImg.setAttribute('data-src', urlImg.src);
+        });
 
         bottomOptions.forEach(option => {
             option.addEventListener('click', () => {
@@ -105,6 +109,9 @@
         purpleMenuOpenLink.addEventListener('click', () => {
             purpleMenuOpenLink.style.bottom = '-300px';
             purpleMenu.style.bottom = '15px';
+            setTimeout(() => {
+                swapPurpleMenuImages();
+            }, 300);
         })
 
         purpleMenuCloseLink.addEventListener('click', () => {
@@ -121,9 +128,76 @@
 
         deliveryOptionsLinks.forEach(option => {
             option.addEventListener('click', () => {
-                popupSection.classList.toggle('active', true);
+                if (!option.classList.contains('selected')) {
+                    deliveryOptionsLinks.forEach(link => {
+                        link.classList.toggle('selected', false);
+                    })
+                    option.classList.add('selected');
+                    popupSection.classList.toggle('active', false);
+                    setTimeout(() => {
+                        popupSection.classList.toggle('active', true);
+                    }, 100);
+                }
             })
         })
+
+
+        function swapPurpleMenuImages() {
+            let urlImgs = [];
+            purpleMenuImages.forEach(urlImg => {
+                urlImgs.push(urlImg.src);
+            });
+
+            let shuffleUrlImgs;
+
+            setTimeout(() => {
+                shuffleUrlImgs = shuffle(urlImgs);
+                fillPurpleMenuImages(shuffleUrlImgs);
+            }, 50);
+
+            setTimeout(() => {
+                shuffleUrlImgs = shuffle(urlImgs);
+                fillPurpleMenuImages(shuffleUrlImgs);
+            }, 100);
+
+            setTimeout(() => {
+                shuffleUrlImgs = shuffle(urlImgs);
+                fillPurpleMenuImages(shuffleUrlImgs);
+            }, 150);
+
+            setTimeout(() => {
+                shuffleUrlImgs = shuffle(urlImgs);
+                fillPurpleMenuImages(shuffleUrlImgs);
+            }, 200);
+
+            setTimeout(() => {
+                shuffleUrlImgs = shuffle(urlImgs);
+                fillPurpleMenuImages(shuffleUrlImgs);
+            }, 250);
+
+            setTimeout(() => {
+                purpleMenuImages.forEach(img => {
+                    img.src = img.dataset.src;
+                });
+            }, 300);
+        }
+
+        function fillPurpleMenuImages(urlImgs) {
+            for (let i = 0; i < purpleMenuImages.length; i++) {
+                purpleMenuImages[i].src = urlImgs[i];
+            }
+        }
+
+        function shuffle(array) {
+            var currentIndex = array.length, randomIndex;
+            while (currentIndex != 0) {
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex--;
+                [array[currentIndex], array[randomIndex]] = [
+                    array[randomIndex], array[currentIndex]];
+            }
+            return array;
+        }
     </script>
 
 </body>
