@@ -72,6 +72,9 @@
         const purpleMenuCloseLink = document.querySelector('a.purple-menu-close-link');
         const deliveryOptions = document.querySelector('#delivery-options');
         const deliveryOptionsLinks = document.querySelectorAll('#delivery-options a');
+        for (let i = 0; i < deliveryOptionsLinks.length;) {
+            deliveryOptionsLinks[i].setAttribute('data-index', ++i);
+        }
         const giftImage = document.querySelector('#gift-image');
         const purpleMenuImages = document.querySelectorAll(".purple-menu label img");
         purpleMenuImages.forEach(urlImg => {
@@ -91,6 +94,9 @@
                         deliveryOptions.classList.add('active');
                         purpleMenuCloseLink.style.opacity = '0';
                         giftImage.src = 'images/close-white.svg';
+                        setTimeout(() => {
+                            swapDeliveryOptions();
+                        }, 300);
                     }
                 } else {
                     deliveryOptions.classList.toggle('active', false);
@@ -128,15 +134,15 @@
 
         deliveryOptionsLinks.forEach(option => {
             option.addEventListener('click', () => {
+                popupSection.classList.toggle('active', false);
+                setTimeout(() => {
+                    popupSection.classList.toggle('active', true);
+                }, 100);
                 if (!option.classList.contains('selected')) {
                     deliveryOptionsLinks.forEach(link => {
                         link.classList.toggle('selected', false);
                     })
                     option.classList.add('selected');
-                    popupSection.classList.toggle('active', false);
-                    setTimeout(() => {
-                        popupSection.classList.toggle('active', true);
-                    }, 100);
                 }
             })
         })
@@ -150,30 +156,13 @@
 
             let shuffleUrlImgs;
 
-            setTimeout(() => {
-                shuffleUrlImgs = shuffle(urlImgs);
-                fillPurpleMenuImages(shuffleUrlImgs);
-            }, 50);
-
-            setTimeout(() => {
-                shuffleUrlImgs = shuffle(urlImgs);
-                fillPurpleMenuImages(shuffleUrlImgs);
-            }, 100);
-
-            setTimeout(() => {
-                shuffleUrlImgs = shuffle(urlImgs);
-                fillPurpleMenuImages(shuffleUrlImgs);
-            }, 150);
-
-            setTimeout(() => {
-                shuffleUrlImgs = shuffle(urlImgs);
-                fillPurpleMenuImages(shuffleUrlImgs);
-            }, 200);
-
-            setTimeout(() => {
-                shuffleUrlImgs = shuffle(urlImgs);
-                fillPurpleMenuImages(shuffleUrlImgs);
-            }, 250);
+            for (let i = 50; i < 300;) {
+                setTimeout(() => {
+                    shuffleUrlImgs = shuffle(urlImgs);
+                    fillPurpleMenuImages(shuffleUrlImgs);
+                }, i);
+                i += 25;
+            }
 
             setTimeout(() => {
                 purpleMenuImages.forEach(img => {
@@ -186,6 +175,31 @@
             for (let i = 0; i < purpleMenuImages.length; i++) {
                 purpleMenuImages[i].src = urlImgs[i];
             }
+        }
+
+        function swapDeliveryOptions() {
+            let optionsOrders = [];
+            for (let i = 0; i < deliveryOptionsLinks.length;) {
+                optionsOrders.push(++i);
+            }
+
+            let shuffelOptionsOrders = [];
+
+            for (let i = 50; i < 300;) {
+                setTimeout(() => {
+                    shuffelOptionsOrders = shuffle(optionsOrders);
+                    for (let i = 0; i < deliveryOptionsLinks.length; i++) {
+                        deliveryOptionsLinks[i].style.order = shuffelOptionsOrders[i];
+                    }
+                }, i);
+                i += 25;
+            }
+
+            setTimeout(() => {
+                deliveryOptionsLinks.forEach(optionLink => {
+                    optionLink.style.order = optionLink.dataset.index;
+                })
+            }, 300);
         }
 
         function shuffle(array) {
