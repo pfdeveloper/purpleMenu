@@ -235,7 +235,6 @@
     transform: translateX(-50%) rotateX(90deg);
     z-index: 99999;
     opacity: 0;
-    overflow: hidden;
 
     label {
         margin: 0;
@@ -249,6 +248,8 @@
         padding: 0 25px 0 20px;
         font-family: Arial, Helvetica, sans-serif;
         clip-path: polygon(0 0, 100% 0%, 85% 100%, 0% 100%);
+        border-top-left-radius: 35px;
+        border-bottom-left-radius: 35px;
     }
 
     a {
@@ -279,34 +280,62 @@
 
         &.selected {
             img {
-                animation: rolling 0.3s ease-in-out 0s forwards;
+                // animation: rolling 0.3s ease-in-out 0s forwards;
             }
 
-            &::before {
-                content: "";
-                position: absolute;
-                bottom: 4px;
-                width: 4px;
-                height: 4px;
-                border-radius: 50%;
-                background: #fff;
-            }
+            // &::before {
+            //     content: "";
+            //     position: absolute;
+            //     bottom: 4px;
+            //     width: 4px;
+            //     height: 4px;
+            //     border-radius: 50%;
+            //     background: #fff;
+            // }
         }
     }
 
-    &::after {
+    a.delivery-options-close-link {
         content: "";
         position: absolute;
         top: -45px;
         left: 50%;
         transform: translateX(-50%);
-        width: 60px;
-        height: 60px;
+        width: 50px;
+        height: 50px;
         border-radius: 50%;
-        box-shadow: 0px 0px 0px 5px rgb(255, 255, 255);
-        background: transparent;
-        opacity: 0;
+        background: #9933ff;
         transition: all 0.3s ease-in-out;
+        z-index: 99999;
+
+        img {
+            width: 24px;
+        }
+    }
+
+    .indicator-container {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        overflow: hidden;
+        z-index: -1;
+
+        .delivery-option-indicator {
+            width: 58px;
+            height: 58px;
+            position: absolute;
+            top: -48px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #fff;
+            border-radius: 50%;
+            z-index: -1;
+            transition: all 0.3s ease-in-out;
+        }
     }
 
     &.active {

@@ -31,7 +31,7 @@
                 <span class="indicator" style="display: none;"></span>
             </div>
         </div>
-        <a href="javascript:void(0);" class="purple-menu-close-link" style="opacity: 1;">
+        <a href="javascript:void(0);" class="purple-menu-close-link">
             <img src="images/close.svg" alt="gift">
         </a>
     </div>
@@ -41,15 +41,21 @@
 
     <div id="delivery-options">
         <label>Delivery<br />Options</label>
-        <a href="javascript:void(0);" style="margin-left: -15px;">
+        <a href="javascript:void(0);" style="margin-left: -15px;" class="delivery-option">
             <img src="images/home-address.svg" alt="home-address" />
         </a>
-        <a href="javascript:void(0);">
+        <a href="javascript:void(0);" class="delivery-option">
             <img src="images/device-address.svg" alt="device-address" />
         </a>
-        <a href="javascript:void(0);">
+        <a href="javascript:void(0);" class="delivery-option">
             <img src="images/people-gift.svg" alt="in-person" />
         </a>
+        <a href="javascript:void(0);" class="delivery-options-close-link">
+            <img src="images/close-white.svg" alt="gift">
+        </a>
+        <div class="indicator-container">
+            <span class="delivery-option-indicator" style="display: block;" />
+        </div>
     </div>
 
     <div class="popup-section">
@@ -71,33 +77,24 @@
         const purpleMenuOpenLink = document.querySelector('a.purple-menu-open-link');
         const purpleMenuCloseLink = document.querySelector('a.purple-menu-close-link');
         const deliveryOptions = document.querySelector('#delivery-options');
-        const deliveryOptionsLinks = document.querySelectorAll('#delivery-options a');
+        const deliveryOptionsLinks = document.querySelectorAll('#delivery-options a.delivery-option');
         for (let i = 0; i < deliveryOptionsLinks.length;) {
             deliveryOptionsLinks[i].setAttribute('data-index', ++i);
         }
-        const giftImage = document.querySelector('#gift-image');
         const purpleMenuImages = document.querySelectorAll(".purple-menu label img");
         purpleMenuImages.forEach(urlImg => {
             urlImg.setAttribute('data-src', urlImg.src);
         });
+        const deliveryOptionsCloseLink = document.querySelector('.delivery-options-close-link');
+        const deliveryOptionIndicator = document.querySelector('.delivery-option-indicator');
 
         bottomOptions.forEach(option => {
             option.addEventListener('click', () => {
                 circle.style.display = 'block';
                 indicator.style.display = 'block';
                 if (option.value == 1) {
-                    if (deliveryOptions.classList.contains('active')) {
-                        deliveryOptions.classList.remove('active');
-                        purpleMenuCloseLink.style.opacity = '1';
-                        giftImage.src = 'images/gift.svg';
-                    } else {
-                        deliveryOptions.classList.add('active');
-                        purpleMenuCloseLink.style.opacity = '0';
-                        giftImage.src = 'images/close-white.svg';
-                        setTimeout(() => {
-                            swapDeliveryOptions();
-                        }, 300);
-                    }
+                    deliveryOptions.classList.toggle('active', true);
+                    purpleMenu.style.bottom = '-300px';
                 } else {
                     deliveryOptions.classList.toggle('active', false);
                     popupSection.classList.toggle('active', false);
@@ -108,8 +105,13 @@
         closePopupSection.addEventListener('click', () => {
             popupSection.classList.toggle('active', false);
             deliveryOptions.classList.toggle('active', false);
-            purpleMenuCloseLink.style.opacity = '1';
-            giftImage.src = 'images/gift.svg';
+            purpleMenu.style.bottom = '15px';
+        })
+
+        deliveryOptionsCloseLink.addEventListener('click', () => {
+            popupSection.classList.toggle('active', false);
+            deliveryOptions.classList.toggle('active', false);
+            purpleMenu.style.bottom = '15px';
         })
 
         purpleMenuOpenLink.addEventListener('click', () => {
@@ -134,18 +136,27 @@
 
         deliveryOptionsLinks.forEach(option => {
             option.addEventListener('click', () => {
+
+            })
+        })
+
+        for (let i = 0; i < deliveryOptionsLinks.length; i++) {
+            deliveryOptionsLinks[i].addEventListener('click', () => {
+                let indicatorPos = 25 * (i + 2);
+                deliveryOptionsCloseLink.style.left = 'calc(' + indicatorPos + '% - 38px)';
+                deliveryOptionIndicator.style.left = 'calc(' + indicatorPos + '% - 38px)';
                 popupSection.classList.toggle('active', false);
                 setTimeout(() => {
                     popupSection.classList.toggle('active', true);
                 }, 100);
-                if (!option.classList.contains('selected')) {
+                if (!deliveryOptionsLinks[i].classList.contains('selected')) {
                     deliveryOptionsLinks.forEach(link => {
                         link.classList.toggle('selected', false);
                     })
-                    option.classList.add('selected');
+                    deliveryOptionsLinks[i].classList.add('selected');
                 }
             })
-        })
+        }
 
 
         function swapPurpleMenuImages() {
